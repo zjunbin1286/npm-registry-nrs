@@ -177,25 +177,22 @@ program
         {
           name: 'name',
           type: 'input',
-          message: '请输入要更新的镜像源名称(非必填)'
+          message: '请输入新的镜像源名称(选填)'
         },
         {
           name: 'url',
           type: 'input',
-          message: '请输入要更新的镜像源地址(非必填)'
+          message: '请输入新的镜像源地址(选填)'
         }
       ])
       .then(async (res) => {
         const index = sources.findIndex((data) => data.value == res.registry);
         const item = sources[index];
-        const lastIndex = res.registry.lastIndexOf('/');
-        if (lastIndex > -1) {
-          const url = res.registry.split('');
-          url.splice(lastIndex, 1);
-          res.registry = url.join('');
-        }
+
+        if (res.url && !res.url.endsWith('/')) res.url = res.url + '/';
+        
         item.name = res.name ? res.name : item.name;
-        item.value = res.registry ? res.registry + '/' : item.value;
+        item.value = res.url ? res.url : item.value;
 
         await sourcesWrite(sources);
         log.success('更新成功');
