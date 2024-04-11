@@ -11,7 +11,9 @@ const {
 } = require('./utils/index');
 const { DEFAULT_REGISTRY } = require('./constant/index');
 const { log } = require('./utils/log');
+
 const sources = require('./public/sources.json');
+const warehouse = require('./public/warehouse.json')
 
 const paths = path.join(__dirname, '../', './package.json');
 const file = JSON.parse(fs.readFileSync(paths));
@@ -220,4 +222,14 @@ program
         }
       });
   });
+
+program
+  .command('store')
+  .description('查看镜像源仓库')
+  .action(() => {
+    warehouse.forEach(item => {
+      log.info(`${item.name}: ${item.value}`)
+    })
+  })
+
 program.parse(process.argv);

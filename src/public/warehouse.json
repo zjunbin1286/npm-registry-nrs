@@ -8,7 +8,15 @@
     "value": "https://registry.yarnpkg.com/"
   },
   {
+    "name": "cnpm",
+    "value": "https://r.cnpmjs.org/"
+  },
+  {
     "name": "taobao",
     "value": "https://registry.npmmirror.com/"
+  },
+  {
+    "name": "tencent",
+    "value": "https://mirrors.cloud.tencent.com/npm/"
   }
 ]
