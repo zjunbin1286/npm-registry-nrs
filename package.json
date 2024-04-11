@@ -1,6 +1,6 @@
 {
   "name": "npm-registry-nrs",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "npm,registry,npm切换源,yarn,cnpm,taobao",
   "main": "index.js",
   "bin": {
