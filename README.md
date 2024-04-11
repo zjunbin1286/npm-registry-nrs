@@ -24,7 +24,7 @@ nrs add 新增镜像源（简写 nrs a）
 
 nrs update 更新镜像源（简写 nrs u）
 
-nrs del 删除镜像源（简写 d）
+nrs del <name> 删除镜像源（简写 nrs d <name>）
 
 nrs reset 恢复默认镜像源
 ```
