@@ -3,10 +3,10 @@ class Log {
     console.log(msg);
   }
   success(msg) {
-    console.log(`success: ${msg}`);
+    console.log(`[success] ${msg}`);
   }
   error(msg) {
-    console.log(`error: ${msg}`);
+    console.log(`[error] ${msg}`);
   }
 }
 module.exports = {
