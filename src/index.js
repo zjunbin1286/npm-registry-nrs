@@ -12,7 +12,6 @@ const {
 const { DEFAULT_REGISTRY } = require('./constant/index');
 const { log } = require('./utils/log');
 const sources = require('./public/sources.json');
-const { checkValue } = require('./utils/check');
 
 const paths = path.join(__dirname, '../', './package.json');
 const file = JSON.parse(fs.readFileSync(paths));
