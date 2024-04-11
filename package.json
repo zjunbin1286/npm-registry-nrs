@@ -1,0 +1,27 @@
+{
+  "name": "npm-registry-nrs",
+  "version": "1.0.1",
+  "description": "npm,registry,npm切换源,yarn,cnpm,taobao",
+  "main": "index.js",
+  "bin": {
+    "nrs": "src/index.js"
+  },
+  "keywords": [
+    "npm",
+    "registry",
+    "npm切换源",
+    "yarn",
+    "cnpm",
+    "taobao"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "CoderBin",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "commander": "^12.0.0",
+    "inquirer": "^8.2.6"
+  }
+}
