@@ -50,7 +50,7 @@ program
   .description('使用某个镜像源')
   .action((name) => {
     if (!name) {
-      return log.error('请按照规定格式使用，[nrs use 镜像源名称]');
+      return log.error('请按照规定格式使用，<nrs use 镜像源名称>');
     }
     const data = sources.find((item) => item.name === name);
     if (!data) {
@@ -70,28 +70,33 @@ program
         {
           name: 'name',
           type: 'input',
-          message: '镜像源名称：'
+          message: '镜像源名称:'
         },
         {
           name: 'url',
           type: 'input',
-          message: '镜像源地址：'
+          message: '镜像源地址:'
         }
       ])
       .then(async (item) => {
         if (!item.name) {
-          throw new Error('镜像源名称不能为空');
+          return log.error('镜像源名称不能为空');
         }
-        if (!item.name) {
-          throw new Error('镜像源地址不能为空');
+        if (!item.url) {
+          return log.error('镜像源地址不能为空');
         }
 
         const index = sources.findIndex((data) => data.name == item.name);
         if (index > -1) {
-          throw new Error('镜像源名称已存在');
+          return log.error('镜像源名称已存在');
         }
 
         if (!item.url.endsWith('/')) item.url = item.url + '/';
+
+        const index2 = sources.findIndex((data) => data.value == item.url);
+        if (index2 > -1) {
+          return log.error('镜像源地址已存在');
+        }
 
         sources.push({
           name: item.name,
