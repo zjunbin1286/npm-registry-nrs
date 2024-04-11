@@ -12,6 +12,7 @@ const {
 const { DEFAULT_REGISTRY } = require('./constant/index');
 const { log } = require('./utils/log');
 const sources = require('./public/sources.json');
+const { checkValue } = require('./utils/check');
 
 const paths = path.join(__dirname, '../', './package.json');
 const file = JSON.parse(fs.readFileSync(paths));
@@ -50,7 +51,7 @@ program
   .description('使用某个镜像源')
   .action((name) => {
     if (!name) {
-      return log.error('请按照规定格式使用，<nrs use 镜像源名称>');
+      return log.error('请按照规定格式使用镜像源，<nrs use 镜像源名称>');
     }
     const data = sources.find((item) => item.name === name);
     if (!data) {
@@ -109,17 +110,12 @@ program
   });
 
 program
-  .command('del')
+  .command('del [name]')
   .alias('d')
   .description('删除镜像源')
-  .action(() => {
+  .action((name) => {
     inquirer
       .prompt([
-        {
-          name: 'name',
-          type: 'input',
-          message: '请输入要删除的镜像源名称'
-        },
         {
           name: 'isDel',
           type: 'confirm',
@@ -127,20 +123,20 @@ program
         }
       ])
       .then(async (res) => {
+        if (!name) return log.error('请按照规定格式删除镜像源，<nrs del 镜像源名称>')
         if (res.isDel) {
-          const index = sources.findIndex((data) => data.name == res.name);
+          const index = sources.findIndex((data) => data.name == name);
           if (index > -1) {
-            const registry = await getcurrentRegistry().toString().trim();
-            const item = sources.find((item) => item.value == registry);
+            const item = sources.find((item) => item.value == currentResource);
             const item1 = sources[index];
             if (item1.name == item.name) {
-              throw new Error('不能删除当前使用的镜像源');
+              log.error('不能删除当前使用的镜像源');
             } else {
               sources.splice(index, 1);
             }
           }
-
           await sourcesWrite(sources);
+          log.success('删除成功')
         }
       });
   });
