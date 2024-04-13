@@ -29,6 +29,8 @@ nrs del <name> 删除镜像源（简写 nrs d <name>）
 nrs reset 恢复默认镜像源
 
 nrs store 查看提供的镜像源仓库
+
+nrs ping <name> 测试镜像响应速度
 ```
 
 ## License

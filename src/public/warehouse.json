@@ -14,9 +14,5 @@
   {
     "name": "taobao",
     "value": "https://registry.npmmirror.com/"
-  },
-  {
-    "name": "tencent",
-    "value": "https://mirrors.cloud.tencent.com/npm/"
   }
 ]

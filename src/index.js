@@ -4,6 +4,8 @@ const fs = require('fs');
 const chalk = require('chalk');
 const inquirer = require('inquirer');
 const { program } = require('commander');
+const HttpPing = require('node-http-ping');
+
 const {
   getcurrentRegistry,
   setRegistry,
@@ -190,7 +192,7 @@ program
         const item = sources[index];
 
         if (res.url && !res.url.endsWith('/')) res.url = res.url + '/';
-        
+
         item.name = res.name ? res.name : item.name;
         item.value = res.url ? res.url : item.value;
 
@@ -227,6 +229,37 @@ program
     warehouse.forEach(item => {
       log.info(`${item.name}: ${item.value}`)
     })
+  })
+
+program
+  .command('ping [name]')
+  .description('检测镜像源速度')
+  .action((name) => {
+    const testTimeFn = (url) => {
+      const testUrl = url.slice(0, url.length - 1)
+      HttpPing(testUrl).then(time => {
+        log.info(`响应时间：${time}ms`)
+      }).catch(() => {
+        log.info("响应超时")
+      })
+    }
+    if (name) {
+      const source = sources.find(item => item.name === name)
+      if (!source) return log.error('该镜像源不存在')
+      const url = source.value
+      testTimeFn(url)
+    } else {
+      const options = {
+        type: 'list',
+        name: 'source',
+        message: '请选择要测速的源:',
+        choices: sources,
+      };
+
+      inquirer.prompt(options).then(res => {
+        testTimeFn(res.source)
+      });
+    }
   })
 
 program.parse(process.argv);
