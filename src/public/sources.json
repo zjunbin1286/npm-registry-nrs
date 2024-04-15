@@ -1,1 +1,18 @@
-[{"name":"npm","value":"https://registry.npmjs.org/"},{"name":"yarn","value":"https://registry.yarnpkg.com/"},{"name":"cnpm","value":"https://r.cnpmjs.org/"},{"name":"taobao","value":"https://registry.npmmirror.com/"}]
+[
+  {
+    "name": "npm",
+    "value": "https://registry.npmjs.org/"
+  },
+  {
+    "name": "yarn",
+    "value": "https://registry.yarnpkg.com/"
+  },
+  {
+    "name": "cnpm",
+    "value": "https://r.cnpmjs.org/"
+  },
+  {
+    "name": "taobao",
+    "value": "https://registry.npmmirror.com/"
+  }
+]

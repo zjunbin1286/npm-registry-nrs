@@ -249,6 +249,21 @@ function pingAction(name) {
   }
 }
 
+/**
+ * * 11.使用镜像源仓库的某个镜像源
+ * @param {*} res 
+ */
+function storeUseAction(name) {
+  if (name) {
+    const source = warehouse.find(item => item.name === name)
+    if (!source) return log.error('该源不存在')
+    setRegistry(source.value);
+    log.success(`${source.name}：${source.value}`);
+  } else {
+    log.error('请按照规定格式使用仓库镜像源，<nrs store-use 镜像源名称>')
+  }
+}
+
 module.exports = {
   currentAction,
   listAction,
@@ -259,5 +274,6 @@ module.exports = {
   delAction,
   resetAction,
   storeAction,
-  pingAction
+  pingAction,
+  storeUseAction
 }

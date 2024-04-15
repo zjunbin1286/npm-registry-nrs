@@ -64,4 +64,10 @@ program
   .description('检测镜像源速度')
   .action(action.pingAction)
 
+program
+  .command('store-use [name]')
+  .description('使用镜像源仓库的某个镜像源')
+  .action(action.storeUseAction)
+
+
 program.parse(process.argv);
