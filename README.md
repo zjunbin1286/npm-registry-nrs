@@ -1,16 +1,18 @@
 # npm-registry-nrs
-npm-registry-nrs 是一个 npm 源管理器，允许你快速地在 npm 源间切换，支持新增修改删除等
+📦 npm-registry-nrs 是一个 npm 源管理器，允许你快速地在 npm 源间切换，并且支持通过增删改查等管理镜像源。
 
-## 安装
+npm-registry-nrs is an NPM source manager that allows you to quickly switch between NPM sources and supports managing image sources through addition, deletion, modification, and querying.
+
+## Install
 ```shell
 # npm
 npm i -g npm-registry-nrs
 
-#yard
+# yard
 yarn add -g  npm-registry-nrs
 ```
 
-## 使用
+## Usage
 ```
 nrs current 查看当前镜像源（简写 nrs c）
 
@@ -29,6 +31,8 @@ nrs del <name> 删除镜像源（简写 nrs d <name>）
 nrs reset 恢复默认镜像源
 
 nrs store 查看提供的镜像源仓库
+
+nrs store-use 使用镜像源仓库中的镜像
 
 nrs ping <name> 测试镜像响应速度
 ```
