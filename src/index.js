@@ -70,13 +70,4 @@ program
   .description('使用镜像源仓库的某个镜像源（Using a certain mirror source from the mirror source repository）')
   .action(action.storeUseAction)
 
-program
-  .command('test [name]')
-  .option('-d, --is-del', 'Show the registry URL instead of the name')
-  .description('Show current registry name or URL')
-  .action((name, { isDel }) => {
-    console.log('name', name)
-    console.log('isDel--', isDel)
-  });
-
 program.parse(process.argv);
