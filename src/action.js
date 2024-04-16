@@ -160,7 +160,7 @@ function updateAction() {
  * * 7.删除镜像源
  * @param {String} name 镜像名称
  */
-function delAction(name) {
+function delAction(name, { isDel }) {
   const delSource = (name) => {
     const index = sources.findIndex((data) => data.name == name);
     if (index > -1) {
@@ -170,27 +170,32 @@ function delAction(name) {
         log.error('不能删除当前使用的镜像源');
       } else {
         sources.splice(index, 1);
+        sourcesWrite(sources);
+        log.success('删除成功')
       }
-      sourcesWrite(sources);
     } else {
       log.error('镜像源不存在');
     }
   }
-
-  inquirer
-    .prompt([
-      {
-        name: 'confirm',
-        type: 'confirm',
-        message: '确认删除吗'
-      }
-    ])
-    .then(async (res) => {
-      if (!name) return log.error('请按照规定格式删除镜像源，<nrs del 镜像源名称>')
-      if (res.confirm) {
-        delSource(name)
-      }
-    });
+  if (isDel) {
+    if (!name) return log.error('请按照规定格式删除镜像源，<nrs del 镜像源名称 -d>')
+    delSource(name)
+  } else {
+    inquirer
+      .prompt([
+        {
+          name: 'confirm',
+          type: 'confirm',
+          message: '确认删除吗'
+        }
+      ])
+      .then(async (res) => {
+        if (!name) return log.error('请按照规定格式删除镜像源，<nrs del 镜像源名称>')
+        if (res.confirm) {
+          delSource(name)
+        }
+      });
+  }
 }
 
 /**
