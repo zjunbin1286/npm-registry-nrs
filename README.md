@@ -1,4 +1,6 @@
 # npm-registry-nrs
+[![NPM version][npm-image]][npm-url]
+
 📦 npm-registry-nrs 是一个 npm 源管理器，允许你快速地在 npm 源间切换，并且支持通过增删改查等管理镜像源。
 
 npm-registry-nrs is an NPM source manager that allows you to quickly switch between NPM sources and supports managing image sources through addition, deletion, modification, and querying.
@@ -39,3 +41,6 @@ nrs ping <name> 测试镜像响应速度
 
 ## License
 Checkout out [MIT](https://github.com/zjunbin1286/npm-registry-nrs/blob/main/LICENSE)
+
+[npm-image]: https://img.shields.io/badge/npm-v1.0.4-blue
+[npm-url]: https://www.npmjs.com/package/npm-registry-nrs
