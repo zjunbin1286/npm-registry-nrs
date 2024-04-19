@@ -23,8 +23,6 @@ const dryRun = (bin, args) => {
 
 // 立即运行
 const directRun = (bin, args) => {
-  // console.log(chalk.blue(`[directRun] ${bin} ${args.join(' ')}`));
-  // return;
   return execa(bin, args, { stdio: 'inherit' });
 };
 
