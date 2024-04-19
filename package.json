@@ -1,6 +1,6 @@
 {
   "name": "npm-registry-nrs",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "CoderBin",
   "description": "📦 npm-registry-nrs is an NPM source manager that allows you to quickly switch between NPM sources.",
   "keywords": [
