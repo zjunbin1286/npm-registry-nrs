@@ -43,11 +43,11 @@ function listAction() {
  */
 function useAction(name) {
   if (!name) {
-    return log.error('请按照规定格式使用镜像源，<nrs use 镜像源名称>');
+    return log.error('Missing name，<nrs use [name]>');
   }
   const data = sources.find((item) => item.name === name);
   if (!data) {
-    return log.error('该镜像源名称不存在');
+    return log.error('The mirror source does not exist');
   }
   setRegistry(data.value);
   log.success(`${data.name}：${data.value}`);
@@ -62,13 +62,12 @@ function checkoutAction() {
       {
         name: 'registry',
         type: 'list',
-        message: '请选择镜像源',
+        message: 'Please select',
         choices: sources
       }
     ])
     .then(async (res) => {
       setRegistry(res.registry);
-      log.success('切换成功');
     });
 }
 
@@ -81,32 +80,32 @@ function addAction() {
       {
         name: 'name',
         type: 'input',
-        message: '镜像源名称:'
+        message: 'name:'
       },
       {
         name: 'url',
         type: 'input',
-        message: '镜像源地址:'
+        message: 'source:'
       }
     ])
     .then(async (item) => {
       if (!item.name) {
-        return log.error('镜像源名称不能为空');
+        return log.error('The name cannot be empty');
       }
       if (!item.url) {
-        return log.error('镜像源地址不能为空');
+        return log.error('The url cannot be empty');
       }
 
       const index = sources.findIndex((data) => data.name == item.name);
       if (index > -1) {
-        return log.error('镜像源名称已存在');
+        return log.error('The name already exists');
       }
 
       if (!item.url.endsWith('/')) item.url = item.url + '/';
 
       const index2 = sources.findIndex((data) => data.value == item.url);
       if (index2 > -1) {
-        return log.error('镜像源地址已存在');
+        return log.error('The url already exists');
       }
 
       sources.push({
@@ -115,7 +114,7 @@ function addAction() {
       });
 
       await sourcesWrite(sources);
-      log.success('新增成功');
+      log.success('Successfully added, can be viewed through command ls');
     });
 }
 
@@ -128,18 +127,18 @@ function updateAction() {
       {
         name: 'registry',
         type: 'list',
-        message: '请选择镜像源',
+        message: 'Please select',
         choices: sources
       },
       {
         name: 'name',
         type: 'input',
-        message: '请输入新的镜像源名称(选填)'
+        message: 'Enter new name(optional)'
       },
       {
         name: 'url',
         type: 'input',
-        message: '请输入新的镜像源地址(选填)'
+        message: 'Enter new url(optional)'
       }
     ])
     .then(async (res) => {
@@ -152,7 +151,7 @@ function updateAction() {
       item.value = res.url ? res.url : item.value;
 
       await sourcesWrite(sources);
-      log.success('更新成功');
+      log.success('Successfully updated, can be viewed through command ls');
     });
 }
 
@@ -167,18 +166,18 @@ function delAction(name, { isDel }) {
       const item = sources.find((item) => item.value == currentResource);
       const item1 = sources[index];
       if (item1.name == item.name) {
-        log.error('不能删除当前使用的镜像源');
+        log.error('Cannot delete the currently used mirror source');
       } else {
         sources.splice(index, 1);
         sourcesWrite(sources);
-        log.success('删除成功')
+        log.success('Successfully deleted, can be viewed through command ls')
       }
     } else {
-      log.error('镜像源不存在');
+      log.error('The mirror source does not exist');
     }
   }
   if (isDel) {
-    if (!name) return log.error('请按照规定格式删除镜像源，<nrs del 镜像源名称 -d>')
+    if (!name) return log.error('Missing name, <nrs del [name] -d>')
     delSource(name)
   } else {
     inquirer
@@ -186,11 +185,11 @@ function delAction(name, { isDel }) {
         {
           name: 'confirm',
           type: 'confirm',
-          message: '确认删除吗'
+          message: 'Are you sure to delete it?'
         }
       ])
       .then(async (res) => {
-        if (!name) return log.error('请按照规定格式删除镜像源，<nrs del 镜像源名称>')
+        if (!name) return log.error('Missing name, <nrs del [name]>')
         if (res.confirm) {
           delSource(name)
         }
@@ -207,13 +206,13 @@ function resetAction() {
       {
         name: 'isReset',
         type: 'confirm',
-        message: '确认恢复默认镜像源吗[npm]'
+        message: 'Are you sure to restore the default mirror source[npm]'
       }
     ])
     .then((res) => {
       if (res.isReset) {
         setRegistry(DEFAULT_REGISTRY);
-        log.success('恢复成功');
+        log.success('Successfully reset, can be viewed through command ls');
       }
     });
 }
@@ -235,21 +234,21 @@ function pingAction(name) {
   const testTimeFn = (url) => {
     const testUrl = url.slice(0, url.length - 1)
     HttpPing(testUrl).then(time => {
-      log.info(`响应时间：${time}ms`)
+      log.info(`Response time: ${time}ms`)
     }).catch(() => {
-      log.info("响应超时")
+      log.info("Response timeout")
     })
   }
   if (name) {
     const source = sources.find(item => item.name === name)
-    if (!source) return log.error('该镜像源不存在')
+    if (!source) return log.error('The mirror source does not exist')
     const url = source.value
     testTimeFn(url)
   } else {
     const options = {
       type: 'list',
       name: 'source',
-      message: '请选择要测速的源:',
+      message: 'Please select:',
       choices: sources,
     };
 
@@ -266,11 +265,11 @@ function pingAction(name) {
 function storeUseAction(name) {
   if (name) {
     const source = warehouse.find(item => item.name === name)
-    if (!source) return log.error('该源不存在')
+    if (!source) return log.error('The mirror source does not exist in the store')
     setRegistry(source.value);
-    log.success(`${source.name}：${source.value}`);
+    log.success(`${source.name}: ${source.value}`);
   } else {
-    log.error('请按照规定格式使用仓库镜像源，<nrs store-use 镜像源名称>')
+    log.error('Missing name, <nrs store-use [name]>')
   }
 }
 
