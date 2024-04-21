@@ -55,8 +55,11 @@ Commands:
 ## Detail
 ```
 Force deletion of mirror source（强制删除镜像源）
-# nrs del <name> -d
+# nrs del [name] -d
 ```
+
+## Changelog
+Detailed changes for each release are documented in the [CHANGELOG](https://github.com/zjunbin1286/npm-registry-nrs/blob/main/CHANGELOG.md).
 
 ## License
 Checkout out [MIT](https://github.com/zjunbin1286/npm-registry-nrs/blob/main/LICENSE)
