@@ -64,5 +64,5 @@ Detailed changes for each release are documented in the [CHANGELOG](https://gith
 ## License
 Checkout out [MIT](https://github.com/zjunbin1286/npm-registry-nrs/blob/main/LICENSE)
 
-[npm-image]: https://img.shields.io/badge/npm-v1.0.5-blue
+[npm-image]: https://img.shields.io/badge/npm-v1.1.3-blue
 [npm-url]: https://www.npmjs.com/package/npm-registry-nrs
