@@ -1,3 +1,7 @@
+## [1.1.2](https://github.com/zjunbin1286/npm-registry-nrs/compare/v1.1.1...v1.1.2) (2024-11-26)
+
+
+
 ## [1.1.1](https://github.com/zjunbin1286/npm-registry-nrs/compare/v1.1.0...v1.1.1) (2024-04-19)
 
 
